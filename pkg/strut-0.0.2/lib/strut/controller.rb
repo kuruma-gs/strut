@@ -18,10 +18,10 @@ module Strut
         actions = Strut::Model::Holder.new options
 
         # define_before_filter
-        strut_controller_filter table_name, file_name, actions
+        strut_controller_filter clazz, table_name, file_name, actions
 
         # define_action
-        strut_controller_action table_name, file_name, actions
+        strut_controller_action clazz, table_name, file_name, actions
       end
     end
 

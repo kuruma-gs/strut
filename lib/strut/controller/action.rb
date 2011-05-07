@@ -3,7 +3,7 @@ require File.join(File.dirname(__FILE__),'respond.rb')
 module Strut
   module Controller
     module Action
-      def strut_controller_action table_name,file_name,actions
+      def strut_controller_action clazz,table_name,file_name,actions
         # index
         actions.find(:index).each do |a|
           define_method a.name do

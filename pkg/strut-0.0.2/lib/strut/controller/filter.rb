@@ -2,7 +2,7 @@ module Strut
   module Controller
     module Filter
 
-      def strut_controller_filter table_name,file_name,actions
+      def strut_controller_filter clazz,table_name,file_name,actions
         # before_filter
         class_eval do
           before_filter :find_one, :only => actions.find_names(:show,:edit,:update,:destroy)
