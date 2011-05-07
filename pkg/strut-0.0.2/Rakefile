@@ -23,3 +23,18 @@ Dir['tasks/**/*.rake'].each { |t| load t }
 # TODO - want other tests/tasks run by default? Add them to the list
 # remove_task :default
 # task :default => [:spec, :features]
+#
+
+begin
+  require 'jeweler'
+  Jeweler::Tasks.new do |gemspec|
+    gemspec.name = "the-perfect-gem"
+    gemspec.summary = "Strut replace scaffold controller with DRY controller"
+    gemspec.email = "josh@technicalpickles.com"
+    gemspec.homepage = "http://github.com/technicalpickles/the-perfect-gem"
+    gemspec.description = "Modified users_controller: 'class UsersController; strut_controller User; end'"
+    gemspec.authors = ["Josh Nichols"]
+  end
+rescue LoadError
+  puts "Jeweler not available. Install it with: sudo gem install technicalpickles-jeweler -s http://gems.github.com"
+end
