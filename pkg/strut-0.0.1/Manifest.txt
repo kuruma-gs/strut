@@ -4,6 +4,12 @@ PostInstall.txt
 README.rdoc
 Rakefile
 lib/strut.rb
+lib/strut/controller.rb
+lib/strut/controller/action.rb
+lib/strut/controller/filter.rb
+lib/strut/controller/respond.rb
+lib/strut/model/action.rb
+lib/strut/model/holder.rb
 script/console
 script/destroy
 script/generate
