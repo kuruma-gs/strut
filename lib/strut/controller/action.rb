@@ -1,9 +1,6 @@
-require File.join(File.dirname(__FILE__),'respond.rb')
-
 module Strut
   module Controller
     module Action
-      include Strut::Controller::Respond
 
       def strut_controller_action clazz,table_name,file_name,actions
         # index
@@ -26,7 +23,6 @@ module Strut
             send("respond_#{a.type}",instance_variable_get("@#{file_name}"))
           end
         end
-
       end
     end
   end

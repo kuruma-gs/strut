@@ -1,6 +1,6 @@
 require 'action_controller/railtie'
 require 'action_view/railtie'
-require 'mongoid'
+#require 'mongoid'
 
 # db
 #Mongoid.configure do |config|

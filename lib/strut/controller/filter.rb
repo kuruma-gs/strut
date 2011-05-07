@@ -1,7 +1,6 @@
 module Strut
   module Controller
     module Filter
-
       def strut_controller_filter clazz,table_name,file_name,actions
         # before_filter
         class_eval do
@@ -29,7 +28,6 @@ module Strut
           end
         end
       end
-
     end
   end
 end

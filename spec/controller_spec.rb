@@ -26,4 +26,9 @@ describe Strut::Controller do
   it{@a.methods.include?(:create).should be_true}
   it{@a.methods.include?(:update).should be_true}
   it{@a.methods.include?(:destroy).should be_true}
+  it{@a.methods.include?(:respond_index).should be_true}
+  it{@a.methods.include?(:respond_show).should be_true}
+  it{@a.methods.include?(:respond_create).should be_true}
+  it{@a.methods.include?(:respond_update).should be_true}
+  it{@a.methods.include?(:respond_destroy).should be_true}
 end

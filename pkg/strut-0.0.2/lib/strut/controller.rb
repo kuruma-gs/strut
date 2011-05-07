@@ -1,8 +1,10 @@
 require File.join(File.dirname(__FILE__),'controller/filter.rb')
 require File.join(File.dirname(__FILE__),'controller/action.rb')
+require File.join(File.dirname(__FILE__),'controller/respond.rb')
 
 module Strut
   module Controller
+    include Strut::Controller::Respond
     
     def self.included(base)
       base.extend ClassMethods

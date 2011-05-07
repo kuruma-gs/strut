@@ -1,7 +1,7 @@
 module Strut
   module Controller
     module Respond
-      def index_respond(objs=[],options={})
+      def respond_index(objs=[],options={})
         respond_to do |format|
           format.html &options[:t]
           format.xml  { render :xml  => objs }
@@ -10,7 +10,7 @@ module Strut
         end
       end
 
-      def show_respond(obj=nil,options={})
+      def respond_show(obj=nil,options={})
         respond_to do |format|
           format.html &options[:t]
           format.xml  { render :xml  => obj }
@@ -19,7 +19,7 @@ module Strut
         end
       end
 
-      def create_respond(obj=nil,options={})
+      def respond_create(obj=nil,options={})
         respond_to do |format|
           if obj.save
             flash[:notice] = options[:t_message]
@@ -37,7 +37,7 @@ module Strut
         end
       end
 
-      def update_respond(obj=nil,options={})
+      def respond_update(obj=nil,options={})
         respond_to do |format|
           if obj.update_attributes(params[obj.class.to_s.underscore.to_sym])
             flash[:notice] = options[:t_message]
@@ -55,7 +55,7 @@ module Strut
         end
       end
 
-      def destroy_respond(obj=nil,options={})
+      def respond_destroy(obj=nil,options={})
         respond_to do |format|
           if obj.destroy
             flash[:notice] = options[:t_message]
