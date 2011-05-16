@@ -13,7 +13,7 @@ module Strut
 
         # find_one
         define_method :find_one do
-          instance_variable_set("@#{file_name}",clazz.send(:find_by_param,params[:id]))
+          instance_variable_set("@#{file_name}",clazz.send(:find,params[:id]))
         end
 
         # new_one
