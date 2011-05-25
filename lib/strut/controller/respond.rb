@@ -22,7 +22,7 @@ module Strut
       end
 
       def respond_create(obj=nil,options={})
-        options[:t] ||= Proc.new{redirec_to action: show}
+        options[:t] ||= Proc.new{redirect_to action: show}
         options[:f] ||= Proc.new{render action: new}
         respond_to do |format|
           if obj.save
@@ -42,7 +42,7 @@ module Strut
       end
 
       def respond_update(obj=nil,options={})
-        options[:t] ||= Proc.new{redirec_to action: show}
+        options[:t] ||= Proc.new{redirect_to action: show}
         options[:f] ||= Proc.new{render action: edit}
         respond_to do |format|
           if obj.update_attributes(params[obj.class.to_s.underscore.to_sym])
@@ -62,7 +62,7 @@ module Strut
       end
 
       def respond_destroy(obj=nil,options={})
-        options[:t] ||= Proc.new{redirec_to action: index}
+        options[:t] ||= Proc.new{redirect_to action: index}
         options[:f] ||= Proc.new{render action: edit}
         respond_to do |format|
           if obj.destroy
