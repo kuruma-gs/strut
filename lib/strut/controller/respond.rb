@@ -2,81 +2,121 @@ module Strut
   module Controller
     module Respond
       def respond_index(objs=[],options={})
-        options[:t] ||= Proc.new{}
+        options[:t]      ||= Proc.new{}
+        options[:t_html] ||= Proc.new{}
+        options[:t_xml]  ||= Proc.new{render xml:  objs}
+        options[:t_json] ||= Proc.new{render json: objs}
+        options[:t_js]   ||= Proc.new{}
+        options[:t].call
         respond_to do |format|
-          format.html &options[:t]
-          format.xml  { render :xml  => objs }
-          format.json { render :json => objs }
-          format.js
+          format.html &options[:t_html]
+          format.xml  &options[:t_xml]
+          format.json &options[:t_json]
+          format.js   &options[:t_js]
         end
       end
 
       def respond_show(obj=nil,options={})
-        options[:t] ||= Proc.new{}
+        options[:t]      ||= Proc.new{}
+        options[:t_html] ||= Proc.new{}
+        options[:t_xml]  ||= Proc.new{render xml:  obj}
+        options[:t_json] ||= Proc.new{render json: obj}
+        options[:t_js]   ||= Proc.new{}
+        options[:t].call
         respond_to do |format|
-          format.html &options[:t]
-          format.xml  { render :xml  => obj }
-          format.json { render :json => obj }
-          format.js
+          format.html &options[:t_html]
+          format.xml  &options[:t_xml]
+          format.json &options[:t_json]
+          format.js   &options[:t_js]
         end
       end
 
       def respond_create(obj=nil,options={})
-        options[:t] ||= Proc.new{redirect_to action: show}
-        options[:f] ||= Proc.new{render action: new}
+        options[:t]      ||= Proc.new{}
+        options[:t_html] ||= Proc.new{ redirect_to action: show}
+        options[:t_xml]  ||= Proc.new{ render xml:  obj, status: :created, location: obj }
+        options[:t_json] ||= Proc.new{ render json: obj, status: :created, location: obj }
+        options[:t_js]   ||= Proc.new{}
+        options[:f]      ||= Proc.new{}
+        options[:f_html] ||= Proc.new{render action: new}
+        options[:f_xml]  ||= Proc.new{ render xml:  obj.errors, status: :unprocessable_entity }
+        options[:f_json] ||= Proc.new{ render json: obj.errors, status: :unprocessable_entity }
+        options[:f_js]   ||= Proc.new{}
         respond_to do |format|
           if obj.save
             flash[:notice] = options[:t_message]
-            format.html &options[:t]
-            format.xml  { render :xml  => obj, :status => :created, :location => obj }
-            format.json { render :json => obj, :status => :created, :location => obj }
-            format.js
+            options[:t].call
+            format.html &options[:t_html]
+            format.xml  &options[:t_xml]
+            format.json &options[:t_json]
+            format.js   &options[:t_js]
           else
             flash[:error] = options[:f_message] if options[:f_message]
-            format.html &options[:f]
-            format.xml  { render :xml  => obj.errors, :status => :unprocessable_entity }
-            format.json { render :json => obj.errors, :status => :unprocessable_entity }
-            format.js
+            options[:f].call
+            format.html &options[:f_html]
+            format.xml  &options[:f_xml]
+            format.json &options[:f_json]
+            format.js   &options[:f_js]
           end
         end
       end
 
       def respond_update(obj=nil,options={})
-        options[:t] ||= Proc.new{redirect_to action: show}
-        options[:f] ||= Proc.new{render action: edit}
+        options[:t]      ||= Proc.new{}
+        options[:t_html] ||= Proc.new{ redirect_to action: show}
+        options[:t_xml]  ||= Proc.new{ head :ok}
+        options[:t_json] ||= Proc.new{ head :ok}
+        options[:t_js]   ||= Proc.new{}
+        options[:f]      ||= Proc.new{}
+        options[:f_html] ||= Proc.new{render action: edit}
+        options[:f_xml]  ||= Proc.new{ render xml:  instance_variable_get("@#{file_name}").errors, status: :unprocessable_entity }
+        options[:f_json] ||= Proc.new{ render json: instance_variable_get("@#{file_name}").errors, status: :unprocessable_entity }
+        options[:f_js]   ||= Proc.new{}
         respond_to do |format|
           if obj.update_attributes(params[obj.class.to_s.underscore.to_sym])
             flash[:notice] = options[:t_message]
-            format.html &options[:t]
-            format.xml  { head :ok }
-            format.json { head :ok }
-            format.js
+            options[:t].call
+            format.html &options[:t_html]
+            format.xml  &options[:t_xml]
+            format.json &options[:t_json]
+            format.js   &options[:t_js]
           else
             flash[:error] = options[:f_message] if options[:f_message]
-            format.html &options[:f]
-            format.xml  { render :xml  => instance_variable_get("@#{file_name}").errors, :status => :unprocessable_entity }
-            format.json { render :json => instance_variable_get("@#{file_name}").errors, :status => :unprocessable_entity }
-            format.js
+            options[:f].call
+            format.html &options[:f_html]
+            format.xml  &options[:f_xml]
+            format.json &options[:f_json]
+            format.js   &options[:f_js]
           end
         end
       end
 
       def respond_destroy(obj=nil,options={})
-        options[:t] ||= Proc.new{redirect_to action: index}
-        options[:f] ||= Proc.new{render action: edit}
+        options[:t]      ||= Proc.new{}
+        options[:t_html] ||= Proc.new{ redirect_to action: index}
+        options[:t_xml]  ||= Proc.new{ head :ok}
+        options[:t_json] ||= Proc.new{ head :ok}
+        options[:t_js]   ||= Proc.new{}
+        options[:f]      ||= Proc.new{}
+        options[:f_html] ||= Proc.new{render action: edit}
+        options[:f_xml]  ||= Proc.new{ head :unprocessable_entity }
+        options[:f_json] ||= Proc.new{ head :unprocessable_entity }
+        options[:f_js]   ||= Proc.new{}
         respond_to do |format|
           if obj.destroy
             flash[:notice] = options[:t_message]
-            format.html &options[:t]
-            format.xml  { head :ok }
-            format.json { head :ok }
-            format.js
+            options[:t].call
+            format.html &options[:t_html]
+            format.xml  &options[:t_xml]
+            format.json &options[:t_json]
+            format.js   &options[:t_js]
           else
             flash[:error] = options[:f_message]
-            format.html &options[:f]
-            format.xml  { head :unprocessable_entity }
-            format.json { head :unprocessable_entity }
-            format.js
+            options[:f].call
+            format.html &options[:f_html]
+            format.xml  &options[:f_xml]
+            format.json &options[:f_json]
+            format.js   &options[:f_js]
           end
         end
       end
