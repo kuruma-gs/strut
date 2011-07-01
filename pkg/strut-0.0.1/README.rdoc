@@ -12,163 +12,163 @@
 * respond:       respond_index, respond_show, respond_create, respond_update, respond_destroy
 
 
-  class UsersController < ApplicationController
-    ### before_filter
+    class UsersController < ApplicationController
+      ### before_filter
 
-    before_filter :find_index , only: [:index]
-    before_filter :find_index2, only: [:index2]
-    before_filter :find_index3, only: [:index3]
-    before_filter :find_one,    only: [:show,:edit,:update]
-    before_filter :new_one,     only: [:new,:create]
+      before_filter :find_index , only: [:index]
+      before_filter :find_index2, only: [:index2]
+      before_filter :find_index3, only: [:index3]
+      before_filter :find_one,    only: [:show,:edit,:update]
+      before_filter :new_one,     only: [:new,:create]
 
-    # create index type filter
-    def find_index
-      @users = User.desc(:created_at).page(params[:page])
-    end
-
-    def find_index2
-      @users = User.desc(:created_at).page(params[:page])
-    end
-
-    def find_index3
-      @users = User.desc(:created_at).page(params[:page])
-    end
-
-    # show, edit, update type filter 
-    def find_one
-      @use = User.find(params[:id])
-    end
-
-    # new, create type filter
-    def new_one
-      @user = User.new
-    end
-
-    ## action
-
-    def index
-      respond_index(@users)
-    end
-
-    def index2
-      respond_index(@users)
-    end
-
-    def index3
-      respond_index(@users)
-    end
-
-    def show
-      respond_show(@user)
-    end
-
-    def show2
-      respond_show(@user)
-    end
-
-    def new
-      respond_show(@user)
-    end
-
-    def edit
-      respond_show(@user)
-    end
-
-    def create
-      respond_create(@user)
-    end
-
-    def update
-      respond_update(@user)
-    end
-
-    def destroy
-      respond_destroy(@user)
-    end
-
-    ## respond
-
-    private
-    def respond_index(@users,options={})
-      options[:t] ||= Proc.new{}
-      respond_to do |format|
-        format.html &options[:t]
-        format.xml  { render :xml  => objs }
-        format.json { render :json => objs }
-        format.js
+      # create index type filter
+      def find_index
+        @users = User.desc(:created_at).page(params[:page])
       end
-    end
 
-    def respond_show(obj=nil,options={})
-      options[:t] ||= Proc.new{}
-      respond_to do |format|
-        format.html &options[:t]
-        format.xml  { render :xml  => obj }
-        format.json { render :json => obj }
-        format.js
+      def find_index2
+        @users = User.desc(:created_at).page(params[:page])
       end
-    end
 
-    def respond_create(obj=nil,options={})
-      options[:t] ||= Proc.new{redirect_to action: show}
-      options[:f] ||= Proc.new{render action: new}
-      respond_to do |format|
-        if obj.save
-          flash[:notice] = options[:t_message]
+      def find_index3
+        @users = User.desc(:created_at).page(params[:page])
+      end
+
+      # show, edit, update type filter 
+      def find_one
+        @use = User.find(params[:id])
+      end
+
+      # new, create type filter
+      def new_one
+        @user = User.new
+      end
+
+      ## action
+
+      def index
+        respond_index(@users)
+      end
+
+      def index2
+        respond_index(@users)
+      end
+
+      def index3
+        respond_index(@users)
+      end
+
+      def show
+        respond_show(@user)
+      end
+
+      def show2
+        respond_show(@user)
+      end
+
+      def new
+        respond_show(@user)
+      end
+
+      def edit
+        respond_show(@user)
+      end
+
+      def create
+        respond_create(@user)
+      end
+
+      def update
+        respond_update(@user)
+      end
+
+      def destroy
+        respond_destroy(@user)
+      end
+
+      ## respond
+
+      private
+      def respond_index(@users,options={})
+        options[:t] ||= Proc.new{}
+        respond_to do |format|
           format.html &options[:t]
-          format.xml  { render :xml  => obj, :status => :created, :location => obj }
-          format.json { render :json => obj, :status => :created, :location => obj }
-          format.js
-        else
-          flash[:error] = options[:f_message] if options[:f_message]
-          format.html &options[:f]
-          format.xml  { render :xml  => obj.errors, :status => :unprocessable_entity }
-          format.json { render :json => obj.errors, :status => :unprocessable_entity }
+          format.xml  { render :xml  => objs }
+          format.json { render :json => objs }
           format.js
         end
       end
-    end
 
-    def respond_update(obj=nil,options={})
-      options[:t] ||= Proc.new{redirect_to action: show}
-      options[:f] ||= Proc.new{render action: edit}
-      respond_to do |format|
-        if obj.update_attributes(params[obj.class.to_s.underscore.to_sym])
-          flash[:notice] = options[:t_message]
+      def respond_show(obj=nil,options={})
+        options[:t] ||= Proc.new{}
+        respond_to do |format|
           format.html &options[:t]
-          format.xml  { head :ok }
-          format.json { head :ok }
-          format.js
-        else
-          flash[:error] = options[:f_message] if options[:f_message]
-          format.html &options[:f]
-          format.xml  { render :xml  => instance_variable_get("@#{file_name}").errors, :status => :unprocessable_entity }
-          format.json { render :json => instance_variable_get("@#{file_name}").errors, :status => :unprocessable_entity }
+          format.xml  { render :xml  => obj }
+          format.json { render :json => obj }
           format.js
         end
       end
-    end
 
-    def respond_destroy(obj=nil,options={})
-      options[:t] ||= Proc.new{redirect_to action: index}
-      options[:f] ||= Proc.new{render action: edit}
-      respond_to do |format|
-        if obj.destroy
-          flash[:notice] = options[:t_message]
-          format.html &options[:t]
-          format.xml  { head :ok }
-          format.json { head :ok }
-          format.js
-        else
-          flash[:error] = options[:f_message]
-          format.html &options[:f]
-          format.xml  { head :unprocessable_entity }
-          format.json { head :unprocessable_entity }
-          format.js
+      def respond_create(obj=nil,options={})
+        options[:t] ||= Proc.new{redirect_to action: show}
+        options[:f] ||= Proc.new{render action: new}
+        respond_to do |format|
+          if obj.save
+            flash[:notice] = options[:t_message]
+            format.html &options[:t]
+            format.xml  { render :xml  => obj, :status => :created, :location => obj }
+            format.json { render :json => obj, :status => :created, :location => obj }
+            format.js
+          else
+            flash[:error] = options[:f_message] if options[:f_message]
+            format.html &options[:f]
+            format.xml  { render :xml  => obj.errors, :status => :unprocessable_entity }
+            format.json { render :json => obj.errors, :status => :unprocessable_entity }
+            format.js
+          end
+        end
+      end
+
+      def respond_update(obj=nil,options={})
+        options[:t] ||= Proc.new{redirect_to action: show}
+        options[:f] ||= Proc.new{render action: edit}
+        respond_to do |format|
+          if obj.update_attributes(params[obj.class.to_s.underscore.to_sym])
+            flash[:notice] = options[:t_message]
+            format.html &options[:t]
+            format.xml  { head :ok }
+            format.json { head :ok }
+            format.js
+          else
+            flash[:error] = options[:f_message] if options[:f_message]
+            format.html &options[:f]
+            format.xml  { render :xml  => instance_variable_get("@#{file_name}").errors, :status => :unprocessable_entity }
+            format.json { render :json => instance_variable_get("@#{file_name}").errors, :status => :unprocessable_entity }
+            format.js
+          end
+        end
+      end
+
+      def respond_destroy(obj=nil,options={})
+        options[:t] ||= Proc.new{redirect_to action: index}
+        options[:f] ||= Proc.new{render action: edit}
+        respond_to do |format|
+          if obj.destroy
+            flash[:notice] = options[:t_message]
+            format.html &options[:t]
+            format.xml  { head :ok }
+            format.json { head :ok }
+            format.js
+          else
+            flash[:error] = options[:f_message]
+            format.html &options[:f]
+            format.xml  { head :unprocessable_entity }
+            format.json { head :unprocessable_entity }
+            format.js
+          end
         end
       end
     end
-  end
 
 == FEATURES/PROBLEMS:
 
