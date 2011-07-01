@@ -4,9 +4,9 @@
 
 == DESCRIPTION:
 
-  class UsersController < ApplicationController
-    strut_controller User, index: [:index2, :index3], show: [:show2]
-  end
+    class UsersController < ApplicationController
+      strut_controller User, index: [:index2, :index3], show: [:show2]
+    end
 
 * before_filter: find_index(find_index2, ... all index methods), find_one, new_one
 * respond:       respond_index, respond_show, respond_create, respond_update, respond_destroy
