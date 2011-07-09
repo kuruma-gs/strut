@@ -9,8 +9,8 @@ Gem::Specification.new do |s|
   s.date = %q{2011-05-07}
   s.description = %q{instead scaffold controller}
   s.email = ["kuruma@galileoscope.com"]
-  s.extra_rdoc_files = ["History.txt", "Manifest.txt", "PostInstall.txt"]
-  s.files = ["History.txt", "Manifest.txt", "PostInstall.txt", "README.rdoc", "Rakefile", "lib/strut.rb", "lib/strut/controller.rb", "lib/strut/controller/action.rb", "lib/strut/controller/filter.rb", "lib/strut/controller/respond.rb", "lib/strut/model/action.rb", "lib/strut/model/holder.rb", "script/console", "script/destroy", "script/generate"]
+  s.extra_rdoc_files = ["History.txt",  "PostInstall.txt"]
+  s.files = ["History.txt", "PostInstall.txt", "README.rdoc", "Rakefile", "lib/strut.rb", "lib/strut/controller.rb", "lib/strut/controller/action.rb", "lib/strut/controller/filter.rb", "lib/strut/controller/respond.rb", "lib/strut/model/action.rb", "lib/strut/model/holder.rb", "script/console", "script/destroy", "script/generate"]
   s.homepage = %q{http://github.com/#{github_username}/#{project_name}}
   s.post_install_message = %q{PostInstall.txt}
   s.rdoc_options = ["--main", "README.rdoc"]
