@@ -6,7 +6,6 @@ require File.join(File.dirname(__FILE__),'strut/model/action.rb')
 require File.join(File.dirname(__FILE__),'strut/controller.rb')
 
 module Strut
-  VERSION = '0.0.4'
   ACTIONS = [:index,:show,:new,:edit,:create,:update,:destroy]
   def ACTIONS.to_hash options={}
     actions = self.clone
