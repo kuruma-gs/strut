@@ -51,7 +51,7 @@ module Strut
             format.json &options[:t_json]
             format.js   &options[:t_js]
           else
-            flash[:error] = options[:f_message] if options[:f_message]
+            flash.now[:error] = options[:f_message] if options[:f_message]
             options[:f].call
             format.html &options[:f_html]
             format.xml  &options[:f_xml]
@@ -81,7 +81,7 @@ module Strut
             format.json &options[:t_json]
             format.js   &options[:t_js]
           else
-            flash[:error] = options[:f_message] if options[:f_message]
+            flash.now[:error] = options[:f_message] if options[:f_message]
             options[:f].call
             format.html &options[:f_html]
             format.xml  &options[:f_xml]
@@ -111,7 +111,7 @@ module Strut
             format.json &options[:t_json]
             format.js   &options[:t_js]
           else
-            flash[:error] = options[:f_message]
+            flash.now[:error] = options[:f_message]
             options[:f].call
             format.html &options[:f_html]
             format.xml  &options[:f_xml]
