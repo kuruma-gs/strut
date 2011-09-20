@@ -24,6 +24,7 @@ module Strut
           end
         end
       end
+
     end
   end
 end

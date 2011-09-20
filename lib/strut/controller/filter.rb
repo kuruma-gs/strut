@@ -24,7 +24,7 @@ module Strut
         # find_all
         actions.find(:index).each do |a|
           define_method "find_#{a.name}" do
-            instance_variable_set("@#{table_name}",clazz.send(:desc,:created_at).send(:page,params[:page]))
+            instance_variable_set("@#{table_name}",clazz.send(:page,params[:page]))
           end
         end
       end

@@ -68,7 +68,7 @@ module Strut
         options[:t_json] ||= Proc.new{ head :ok}
         options[:t_js]   ||= Proc.new{}
         options[:f]      ||= Proc.new{}
-        options[:f_html] ||= Proc.new{render action: edit}
+        options[:f_html] ||= Proc.new{ render action: edit }
         options[:f_xml]  ||= Proc.new{ render xml:  instance_variable_get("@#{file_name}").errors, status: :unprocessable_entity }
         options[:f_json] ||= Proc.new{ render json: instance_variable_get("@#{file_name}").errors, status: :unprocessable_entity }
         options[:f_js]   ||= Proc.new{}
