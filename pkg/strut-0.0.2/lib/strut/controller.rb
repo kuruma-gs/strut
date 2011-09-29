@@ -14,8 +14,8 @@ module Strut
       include Strut::Controller::Filter
       include Strut::Controller::Action
       def strut_controller clazz, options={}
-        table_name = clazz.to_s.tableize
-        file_name = clazz.to_s.underscore
+        table_name = clazz.to_s.tableize.gsub("/","_")
+        file_name = clazz.to_s.underscore.gsub("/","_")
         actions = Strut::Model::Holder.new options
 
         # define_before_filter
