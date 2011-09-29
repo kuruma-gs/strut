@@ -73,7 +73,7 @@ module Strut
         options[:f_json] ||= Proc.new{ render json: instance_variable_get("@#{file_name}").errors, status: :unprocessable_entity }
         options[:f_js]   ||= Proc.new{}
         respond_to do |format|
-          if obj.update_attributes(params[obj.class.to_s.underscore.to_sym])
+          if obj.update_attributes(params[obj.class.to_s.underscore.gsub("/","_").to_sym])
             flash[:notice] = options[:t_message]
             options[:t].call
             format.html &options[:t_html]
