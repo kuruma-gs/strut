@@ -64,13 +64,13 @@ module Strut
       def respond_update(obj=nil,options={})
         options[:t]      ||= Proc.new{}
         options[:t_html] ||= Proc.new{ redirect_to action: show}
-        options[:t_xml]  ||= Proc.new{ head :ok}
-        options[:t_json] ||= Proc.new{ head :ok}
+        options[:t_xml]  ||= Proc.new{ head :ok }
+        options[:t_json] ||= Proc.new{ head :ok }
         options[:t_js]   ||= Proc.new{}
         options[:f]      ||= Proc.new{}
         options[:f_html] ||= Proc.new{ render action: edit }
-        options[:f_xml]  ||= Proc.new{ render xml:  instance_variable_get("@#{file_name}").errors, status: :unprocessable_entity }
-        options[:f_json] ||= Proc.new{ render json: instance_variable_get("@#{file_name}").errors, status: :unprocessable_entity }
+        options[:f_xml]  ||= Proc.new{ render xml:  obj.errors, status: :unprocessable_entity }
+        options[:f_json] ||= Proc.new{ render json: obj.errors, status: :unprocessable_entity }
         options[:f_js]   ||= Proc.new{}
         respond_to do |format|
           if obj.update_attributes(params[obj.class.to_s.underscore.gsub("/","_").to_sym])
@@ -94,11 +94,11 @@ module Strut
       def respond_destroy(obj=nil,options={})
         options[:t]      ||= Proc.new{}
         options[:t_html] ||= Proc.new{ redirect_to action: index}
-        options[:t_xml]  ||= Proc.new{ head :ok}
-        options[:t_json] ||= Proc.new{ head :ok}
+        options[:t_xml]  ||= Proc.new{ head :ok }
+        options[:t_json] ||= Proc.new{ head :ok }
         options[:t_js]   ||= Proc.new{}
         options[:f]      ||= Proc.new{}
-        options[:f_html] ||= Proc.new{render action: edit}
+        options[:f_html] ||= Proc.new{ render action: edit }
         options[:f_xml]  ||= Proc.new{ head :unprocessable_entity }
         options[:f_json] ||= Proc.new{ head :unprocessable_entity }
         options[:f_js]   ||= Proc.new{}
