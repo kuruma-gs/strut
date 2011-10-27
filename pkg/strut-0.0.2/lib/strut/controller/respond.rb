@@ -64,8 +64,8 @@ module Strut
       def respond_update(obj=nil,options={})
         options[:t]      ||= Proc.new{}
         options[:t_html] ||= Proc.new{ redirect_to action: show}
-        options[:t_xml]  ||= Proc.new{ head :ok }
-        options[:t_json] ||= Proc.new{ head :ok }
+        options[:t_xml]  ||= Proc.new{ render xml: obj }
+        options[:t_json] ||= Proc.new{ render json: obj }
         options[:t_js]   ||= Proc.new{}
         options[:f]      ||= Proc.new{}
         options[:f_html] ||= Proc.new{ render action: edit }
@@ -94,8 +94,8 @@ module Strut
       def respond_destroy(obj=nil,options={})
         options[:t]      ||= Proc.new{}
         options[:t_html] ||= Proc.new{ redirect_to action: index}
-        options[:t_xml]  ||= Proc.new{ head :ok }
-        options[:t_json] ||= Proc.new{ head :ok }
+        options[:t_xml]  ||= Proc.new{ render xml: obj }
+        options[:t_json] ||= Proc.new{ render json: obj }
         options[:t_js]   ||= Proc.new{}
         options[:f]      ||= Proc.new{}
         options[:f_html] ||= Proc.new{ render action: edit }
