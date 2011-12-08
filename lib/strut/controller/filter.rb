@@ -6,7 +6,7 @@ module Strut
         class_eval do
           before_filter :find_one, :only => actions.find_names(:show,:edit,:update,:destroy)
           before_filter :new_one,  :only => actions.find_names(:new,:create)
-          before_filter :update_one,  :only => actions.find_names(:update)
+          before_filter :update_one, :only => actions.find_names(:update)
           actions.find_names(:index).each do |index|
             before_filter "find_#{index}", :only => [index]
           end
