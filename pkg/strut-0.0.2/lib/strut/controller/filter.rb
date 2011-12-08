@@ -24,7 +24,7 @@ module Strut
 
         # update_one
         define_method :update_one do
-          instance_variable_get("@#{file_name}").send(:attributes,params[file_name.to_sym])
+          instance_variable_get("@#{file_name}").send(:attributes=,params[file_name.to_sym])
         end
 
         # find_all
